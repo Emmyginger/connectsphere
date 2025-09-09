@@ -6,12 +6,10 @@ import Feed from './components/Feed';
 import Login from './components/Login';
 
 function App() {
-  // State to hold the current user.
-  // We check localStorage to see if a user was previously logged in.
+  
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
 
-  // This effect runs when the 'user' state changes.
-  // It updates localStorage to persist the user session.
+  
   useEffect(() => {
     if (user) {
       localStorage.setItem('user', JSON.stringify(user));
