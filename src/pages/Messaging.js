@@ -1,12 +1,12 @@
 import React from 'react';
 
-function Jobs() {
+function Messaging() {
   return (
     <div style={{ flex: 0.8, textAlign: 'center' }}>
-      <h1>Jobs Page</h1>
+      <h1>Messaging Page</h1>
       <p>This page is under construction. 🏗️</p>
     </div>
   );
 }
 
-export default Jobs;
+export default Messaging;
