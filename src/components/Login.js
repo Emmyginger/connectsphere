@@ -3,15 +3,26 @@ import React, { useState } from 'react';
 function Login({ onLogin }) {
   const [name, setName] = useState('');
   const [title, setTitle] = useState('');
-  const [picUrl, setPicUrl] = useState('');
+  const [profilePic, setProfilePic] = useState(null);
+
+  const handleFileChange = (e) => {
+    if (e.target.files[0]) {
+      const file = e.target.files[0];
+      // Use FileReader to convert image to a base64 string
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        setProfilePic(reader.result);
+      };
+    }
+  };
 
   const loginToApp = (e) => {
     e.preventDefault();
     if (!name || !title) {
       return alert('Please enter your full name and title!');
     }
-    // Call the onLogin function passed from App.js
-    onLogin(name, title, picUrl);
+    onLogin(name, title, profilePic);
   };
 
   return (
@@ -33,12 +44,10 @@ function Login({ onLogin }) {
             placeholder="Job Title (required)"
             type="text"
           />
-          <input
-            value={picUrl}
-            onChange={(e) => setPicUrl(e.target.value)}
-            placeholder="Profile pic URL (optional)"
-            type="text"
-          />
+          <label htmlFor="file-upload">
+            {profilePic ? 'Image Selected!' : 'Upload Profile Picture'}
+          </label>
+          <input id="file-upload" type="file" onChange={handleFileChange} accept="image/*" />
           <button type="submit">Sign In</button>
         </form>
       </div>
