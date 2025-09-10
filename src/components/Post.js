@@ -1,39 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined';
 import ChatOutlinedIcon from '@mui/icons-material/ChatOutlined';
 import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
-import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
-// Simple InputOption component for reusability
-const InputOption = ({ Icon, title, color, onClick, isLiked }) => (
-  <div onClick={onClick} className={`inputOption ${isLiked ? 'liked' : ''}`}>
-    <Icon style={{ color: isLiked ? '#FF7F50' : color }} />
+// Reusable Button component
+const PostButton = ({ Icon, title, color, onClick }) => (
+  <div onClick={onClick} className="inputOption">
+    <Icon style={{ color: color }} />
     <h4>{title}</h4>
   </div>
 );
 
-function Post({ postData, onLike, onComment }) {
-  const [comment, setComment] = useState('');
-  const [isLiked, setIsLiked] = useState(false);
-
-  const handleLikeClick = () => {
-    if (!isLiked) { // Prevent multiple likes from the same user session
-        onLike();
-        setIsLiked(true);
-    }
-  };
-
-  const sendComment = (e) => {
-    e.preventDefault();
-    if (!comment.trim()) return;
-    onComment(comment);
-    setComment('');
-  };
-
+function Post({ postData, onAddToNetwork }) {
   return (
     <div className="post">
       <div className="post__header">
-        <img src={postData.photoUrl} alt="" className="post__avatar" />
+        <img src={postData.photoUrl || `https://api.dicebear.com/7.x/initials/svg?seed=${postData.name}`} alt="" className="post__avatar" />
         <div className="post__info">
           <h2>{postData.name}</h2>
           <p>{postData.description}</p>
@@ -42,39 +25,14 @@ function Post({ postData, onLike, onComment }) {
 
       <div className="post__body">
         <p>{postData.message}</p>
+        {postData.postImageUrl && <img src={postData.postImageUrl} alt="Post content" className="post__image" />}
       </div>
 
       <div className="post__buttons">
-        <InputOption
-          Icon={ThumbUpAltOutlinedIcon}
-          title={`Like (${postData.likes})`}
-          color="#4A5568"
-          onClick={handleLikeClick}
-          isLiked={isLiked}
-        />
-        <InputOption Icon={ChatOutlinedIcon} title="Comment" color="#4A5568" />
-        <InputOption Icon={ShareOutlinedIcon} title="Share" color="#4A5568" />
-        <InputOption Icon={SendOutlinedIcon} title="Send" color="#4A5568" />
-      </div>
-
-      <div className="post__comments">
-        {postData.comments.map((c, index) => (
-          <div key={index} className="post__comment">
-            <p>
-              <strong>{c.user}</strong>
-              {c.text}
-            </p>
-          </div>
-        ))}
-        <form onSubmit={sendComment} className="post__commentForm">
-          <input
-            type="text"
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-            placeholder="Add a comment..."
-          />
-          <button type="submit">Send</button>
-        </form>
+        <PostButton Icon={ThumbUpAltOutlinedIcon} title="Like" color="#4A5568" />
+        <PostButton Icon={ChatOutlinedIcon} title="Comment" color="#4A5568" />
+        <PostButton Icon={ShareOutlinedIcon} title="Share" color="#4A5568" />
+        <PostButton Icon={PersonAddIcon} title="Add to network" color="#4A5568" onClick={onAddToNetwork} />
       </div>
     </div>
   );
