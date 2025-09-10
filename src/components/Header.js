@@ -46,7 +46,10 @@ function Header({ user, onLogout, onToggleTheme, theme }) {
       {isMenuOpen && (
         <div className="header__mobileMenu">
           <NavOption to="/" Icon={HomeIcon} title="Home" />
-          {/* ...other mobile nav options... */}
+          <NavOption to="/network" Icon={SupervisorAccountIcon} title="My Network" />
+          <NavOption to="/jobs" Icon={BusinessCenterIcon} title="Jobs" />
+          <NavOption to="/messaging" Icon={ChatIcon} title="Messaging" />
+          <NavOption to="/notifications" Icon={NotificationsIcon} title="Notifications" />
           <div onClick={onLogout} className="headerOption">
              <img src={user?.photoURL} alt="avatar" className="headerOption__avatar" />
              <h3 className="headerOption__title">Logout</h3>

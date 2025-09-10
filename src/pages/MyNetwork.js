@@ -1,7 +1,7 @@
 import React from 'react';
 import Sidebar from '../components/Sidebar';
 
-function MyNetwork({ user }) {
+function MyNetwork({ user, onRemoveFromNetwork }) {
   return (
     <>
       <Sidebar user={user} />
@@ -13,6 +13,12 @@ function MyNetwork({ user }) {
               <div key={index} className="networkPage__member">
                 <img src={person.photoUrl} alt={person.name} />
                 <h3>{person.name}</h3>
+                <button 
+                  className="networkPage__remove-btn"
+                  onClick={() => onRemoveFromNetwork(person.name)}
+                >
+                  Remove
+                </button>
               </div>
             ))}
           </div>

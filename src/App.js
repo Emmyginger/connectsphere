@@ -12,33 +12,40 @@ import Notifications from './pages/Notifications';
 function App() {
   const [user, setUser] = useState(() => JSON.parse(localStorage.getItem('user')));
   const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
+  // New state for messages
+  const [messages, setMessages] = useState(() => JSON.parse(localStorage.getItem('messages')) || {});
 
   useEffect(() => {
-    // Persist user and theme to localStorage
     if (user) localStorage.setItem('user', JSON.stringify(user));
     else localStorage.removeItem('user');
     
     localStorage.setItem('theme', theme);
     document.body.setAttribute('data-theme', theme);
-  }, [user, theme]);
+
+    // Persist messages
+    localStorage.setItem('messages', JSON.stringify(messages));
+  }, [user, theme, messages]);
 
   const handleLogin = (name, title, occupation, picDataUrl) => {
     setUser({
-      name,
-      title,
-      occupation,
+      name, title, occupation,
       photoURL: picDataUrl || `https://api.dicebear.com/7.x/initials/svg?seed=${name}`,
-      network: [],
-      appliedJobs: [],
+      network: [], appliedJobs: [],
     });
   };
 
   const handleLogout = () => setUser(null);
-  
   const toggleTheme = () => setTheme(prevTheme => (prevTheme === 'light' ? 'dark' : 'light'));
 
   const addToNetwork = (person) => {
-    setUser(prevUser => ({ ...prevUser, network: [...prevUser.network, person] }));
+    setUser(prevUser => {
+      // Guard clause: prevent adding yourself
+      if (person.name === prevUser.name) {
+        alert("You cannot add yourself to your network!");
+        return prevUser;
+      }
+      return { ...prevUser, network: [...prevUser.network, person] };
+    });
   };
 
   const removeFromNetwork = (personName) => {
@@ -52,6 +59,18 @@ function App() {
     setUser(prevUser => {
       if (prevUser.appliedJobs.includes(jobId)) return prevUser;
       return { ...prevUser, appliedJobs: [...prevUser.appliedJobs, jobId] };
+    });
+  };
+
+  // New function to handle sending messages
+  const handleSendMessage = (recipient, text) => {
+    setMessages(prevMessages => {
+      const existingConversation = prevMessages[recipient] || [];
+      const newConversation = [
+        ...existingConversation,
+        { sender: 'me', text: text, timestamp: new Date() }
+      ];
+      return { ...prevMessages, [recipient]: newConversation };
     });
   };
 
@@ -70,11 +89,12 @@ function App() {
                         user={user} 
                         onAddToNetwork={addToNetwork} 
                         onRemoveFromNetwork={removeFromNetwork} 
+                        onSendMessage={handleSendMessage}
                     />} 
                 />
-                <Route path="/network" element={<MyNetwork user={user} />} />
+                <Route path="/network" element={<MyNetwork user={user} onRemoveFromNetwork={removeFromNetwork} />} />
                 <Route path="/jobs" element={<Jobs user={user} onApply={handleApply} />} />
-                <Route path="/messaging" element={<Messaging />} />
+                <Route path="/messaging" element={<Messaging user={user} messages={messages} />} />
                 <Route path="/notifications" element={<Notifications />} />
                 <Route path="*" element={<Navigate to="/" />} />
               </Routes>

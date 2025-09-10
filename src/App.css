@@ -444,6 +444,162 @@ a {
   cursor: not-allowed;
 }
 
+
+/* Post Component Additions */
+.post__header {
+  position: relative;
+}
+.post__message-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: transparent;
+  border: none;
+  color: var(--secondary-color);
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+}
+.post__message-btn:hover {
+  background-color: var(--background-color);
+}
+.post__comments {
+    margin-top: 15px;
+    border-top: 1px solid var(--border-color);
+    padding-top: 10px;
+}
+.post__comment {
+    display: flex;
+    margin-bottom: 8px;
+    align-items: center;
+}
+.post__comment p {
+    margin: 0;
+    background-color: var(--background-color);
+    padding: 8px 12px;
+    border-radius: 18px;
+    font-size: 14px;
+    line-height: 1.4;
+}
+.post__comment strong {
+    margin-right: 6px;
+    color: var(--primary-color);
+}
+.post__commentForm {
+    display: flex;
+    margin-top: 10px;
+}
+.post__commentForm input {
+    flex: 1;
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 10px;
+    outline: none;
+    background-color: transparent;
+    color: var(--text-color);
+}
+.post__commentForm button {
+    display: none;
+}
+
+/* My Network Page Additions */
+.networkPage__member {
+  position: relative;
+}
+.networkPage__remove-btn {
+  margin-top: 10px;
+  padding: 6px 12px;
+  border: 1px solid #E53E3E;
+  color: #E53E3E;
+  background-color: transparent;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.2s;
+}
+.networkPage__remove-btn:hover {
+  background-color: #E53E3E;
+  color: white;
+}
+
+/* Messaging Page Styles */
+.messagingPage {
+  flex: 0.8;
+  display: flex;
+  height: calc(100vh - 100px); /* Full height minus header */
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 0;
+  overflow: hidden;
+}
+.messagingPage__no-conversations {
+  width: 100%;
+  text-align: center;
+  padding: 40px;
+}
+.messagingPage__sidebar {
+  flex: 0.3;
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+}
+.messagingPage__sidebar h2 {
+  padding: 15px;
+  margin: 0;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 1.2rem;
+}
+.messagingPage__partner {
+  padding: 15px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-weight: bold;
+}
+.messagingPage__partner:hover {
+  background-color: var(--background-color);
+}
+.messagingPage__partner.active {
+  background-color: var(--primary-color);
+  color: white;
+}
+.messagingPage__chat-window {
+  flex: 0.7;
+  display: flex;
+  flex-direction: column;
+}
+.messagingPage__chat-header {
+  padding: 15px;
+  border-bottom: 1px solid var(--border-color);
+}
+.messagingPage__chat-header h3 {
+  margin: 0;
+}
+.messagingPage__messages {
+  flex: 1;
+  padding: 15px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+.messageBubble {
+  padding: 10px 15px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  max-width: 70%;
+  line-height: 1.4;
+}
+.messageBubble.sent {
+  background-color: var(--primary-color);
+  color: white;
+  align-self: flex-end;
+}
+.messageBubble.received {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  align-self: flex-start;
+}
+
 /* --- Base Responsive (Tablet) --- */
 @media (max-width: 768px) {
   .app__body {
