@@ -1,41 +1,66 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { NavLink, Link } from 'react-router-dom';
 import HomeIcon from '@mui/icons-material/Home';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
 import ChatIcon from '@mui/icons-material/Chat';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
 
-// Simple HeaderOption component for reusability
-const HeaderOption = ({ Icon, avatar, title, onClick }) => (
-  <div onClick={onClick} className="headerOption">
+// Reusable NavOption component using NavLink for active styling
+const NavOption = ({ to, Icon, title }) => (
+  <NavLink to={to} className={({ isActive }) => "headerOption" + (isActive ? " active" : "")}>
     {Icon && <Icon />}
-    {avatar && <img src={avatar} alt="avatar" className="headerOption__avatar" />}
     <h3 className="headerOption__title">{title}</h3>
-  </div>
+  </NavLink>
 );
 
 function Header({ user, onLogout }) {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   return (
     <div className="header">
       <div className="header__content">
         <div className="header__left">
-          <div className="header__logo">
+          <Link to="/" className="header__logo">
             Connect<span>Sphere</span>
+          </Link>
+        </div>
+
+        {/* Desktop Menu */}
+        <div className="header__right">
+          <NavOption to="/" Icon={HomeIcon} title="Home" />
+          <NavOption to="/network" Icon={SupervisorAccountIcon} title="My Network" />
+          <NavOption to="/jobs" Icon={BusinessCenterIcon} title="Jobs" />
+          <NavOption to="/messaging" Icon={ChatIcon} title="Messaging" />
+          <NavOption to="/notifications" Icon={NotificationsIcon} title="Notifications" />
+          <div onClick={onLogout} className="headerOption">
+            <img src={user?.photoURL} alt="avatar" className="headerOption__avatar" />
+            <h3 className="headerOption__title">Logout</h3>
           </div>
         </div>
-        <div className="header__right">
-          <HeaderOption Icon={HomeIcon} title="Home" />
-          <HeaderOption Icon={SupervisorAccountIcon} title="My Network" />
-          <HeaderOption Icon={BusinessCenterIcon} title="Jobs" />
-          <HeaderOption Icon={ChatIcon} title="Messaging" />
-          <HeaderOption Icon={NotificationsIcon} title="Notifications" />
-          <HeaderOption
-            avatar={user?.photoURL}
-            title="me"
-            onClick={onLogout}
-          />
+
+        {/* Hamburger Icon */}
+        <div className="header__hamburger" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+          {isMenuOpen ? <CloseIcon /> : <MenuIcon />}
         </div>
       </div>
+
+      {/* Mobile Menu */}
+      {isMenuOpen && (
+        <div className="header__mobileMenu">
+          <NavOption to="/" Icon={HomeIcon} title="Home" />
+          <NavOption to="/network" Icon={SupervisorAccountIcon} title="My Network" />
+          <NavOption to="/jobs" Icon={BusinessCenterIcon} title="Jobs" />
+          <NavOption to="/messaging" Icon={ChatIcon} title="Messaging" />
+          <NavOption to="/notifications" Icon={NotificationsIcon} title="Notifications" />
+          <div onClick={onLogout} className="headerOption">
+            <img src={user?.photoURL} alt="avatar" className="headerOption__avatar" />
+            <h3 className="headerOption__title">Logout</h3>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
