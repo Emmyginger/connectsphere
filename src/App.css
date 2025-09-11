@@ -649,6 +649,7 @@ a {
   .app__body {
     padding: 0 10px;
     margin-top: 15px;
+    
   }
   .login__container {
     padding: 30px 20px;
@@ -657,11 +658,13 @@ a {
   .login__logo {
     font-size: 2.5rem;
   }
+ 
   .header__content {
     padding: 0 15px;
+    
   }
   .header__logo {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
   .jobCard {
     flex-direction: column;

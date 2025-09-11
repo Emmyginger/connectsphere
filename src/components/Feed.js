@@ -12,11 +12,61 @@ const InputOption = ({ Icon, title, color, htmlFor }) => (
 );
 
 const initialPosts = [
-    { id: 1, name: 'Elon Musk', description: 'CEO, SpaceX & Tesla', message: 'To the moon! 🚀', photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/USAFA_Hosts_Elon_Musk_%28Image_1_of_17%29_%28cropped%29.jpg/500px-USAFA_Hosts_Elon_Musk_%28Image_1_of_17%29_%28cropped%29.jpg', postImageUrl: 'https://www.spacex.com/static/images/share.jpg', likes: 102, isLiked: false, comments: [{user: 'Jeff Bezos', text: 'See you there!'}] },
-    { id: 2, name: 'Jeff Bezos', description: 'Founder, Amazon', message: 'Just launched a new AWS feature. It’s always Day 1!', photoUrl: 'https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cq_auto:good%2Cw_1200/MTY2NzA3ODE3OTgwMzcyMjY5/jeff-bezos-attends-the-lord-of-the-rings-the-rings-of-power-world-premiere-at-culver-studios-on-august-15-2022-in-culver-city-california-photo-by-kevin-winter_getty-images.jpg', postImageUrl: 'https://m.media-amazon.com/images/G/01/sell/images/Anker-01.jpg', likes: 88, isLiked: false, comments: [] },
-    { id: 3, name: 'Ada Lovelace', description: 'The first programmer', message: 'Thinking about the Analytical Engine today. The potential for computing is limitless.', photoUrl: 'https://cdn.britannica.com/49/187349-050-2522541E/Ada-Lovelace-prop-oil-painting-Alfred-Edward-1852.jpg', postImageUrl: 'https://miro.medium.com/v2/resize:fit:1024/1*bT4na0KVXzN4_0i_T64JRw.jpeg', likes: 150, comments: [] },
-    { id: 4, name: 'Marie Curie', description: 'Nobel Prize in Physics and Chemistry', message: 'Exploring the properties of radium. The scientific journey never ends.', photoUrl: 'https://cdn.britannica.com/79/5379-050-446A4350/Marie-Curie-1920.jpg', postImageUrl: 'https://www.nobelprize.org/images/marie-curie-12870-content-mobile-1x-2.jpg', likes: 210, comments: [] },
-    { id: 5, name: 'Satya Nadella', description: 'CEO, Microsoft', message: 'Empowering every person and every organization on the planet to achieve more. That is our mission.', photoUrl: 'https://pbs.twimg.com/profile_images/1221837516816306177/_Ld4Gvlt_400x400.jpg', postImageUrl: 'https://news.microsoft.com/wp-content/uploads/prod/2021/05/Microsoft-Build-2021-Day-2-Satya-Nadella-scaled.jpg', likes: 95, comments: [] },
+    { 
+      id: 1, 
+      name: 'Satya Nadella', 
+      description: 'CEO, Microsoft', 
+      message: 'Our industry does not respect tradition — it only respects innovation. We are focused on empowering every person and organization to achieve more.', 
+      photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/MS-Exec-Nadella-Satya-2017-08-31-22_%28cropped%29.jpg/500px-MS-Exec-Nadella-Satya-2017-08-31-22_%28cropped%29.jpg', 
+      postImageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Microsoft_Linux.jpg/500px-Microsoft_Linux.jpg', 
+      likes: 256, 
+      isLiked: false, 
+      comments: [{user: 'Tim Cook', text: 'Great mission, Satya.'}] 
+    },
+    { 
+      id: 2, 
+      name: 'Serena Williams', 
+      description: 'Athlete & Venture Capitalist, Serena Ventures', 
+      message: 'Excited about the latest seed round for a groundbreaking health-tech startup. Investing in the future is the ultimate grand slam. #VentureCapital #Tech', 
+      photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Serena_Williams_at_2013_US_Open.jpg/330px-Serena_Williams_at_2013_US_Open.jpg', 
+      postImageUrl: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=1032', 
+      likes: 431, 
+      isLiked: false, 
+      comments: [] 
+    },
+    { 
+      id: 3, 
+      name: 'Bill Gates', 
+      description: 'Co-chair, Bill & Melinda Gates Foundation', 
+      message: "Just returned from a trip focused on global health initiatives. The progress in vaccine distribution is inspiring, but there's still so much work to be done.", 
+      photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Bill_Gates_at_the_European_Commission_-_2025_-_P067383-987995_%28cropped%29.jpg/500px-Bill_Gates_at_the_European_Commission_-_2025_-_P067383-987995_%28cropped%29.jpg', 
+      postImageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Foreign_Secretary_David_Cameron_attends_COP28_%2853376969086%29.jpg/500px-Foreign_Secretary_David_Cameron_attends_COP28_%2853376969086%29.jpg', 
+      likes: 512, 
+      isLiked: false, 
+      comments: [] 
+    },
+    { 
+      id: 4, 
+      name: 'Susan Wojcicki', 
+      description: 'Former CEO, YouTube', 
+      message: 'The creativity I see from creators around the world continues to amaze me. Supporting the creator economy is essential for the future of media.', 
+      photoUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=872', 
+      postImageUrl: 'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?q=80&w=774', 
+      likes: 389, 
+      isLiked: false, 
+      comments: [{user: 'Satya Nadella', text: 'Completely agree.'}] 
+    },
+    { 
+      id: 5, 
+      name: 'Jensen Huang', 
+      description: 'Founder & CEO, NVIDIA', 
+      message: "The future of computing is accelerated. Incredible to see how generative AI is transforming every industry. The next industrial revolution is underway.", 
+      photoUrl: 'https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=774', 
+      postImageUrl: 'https://images.unsplash.com/photo-1674027444485-cec3da58eef4?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 
+      likes: 678, 
+      isLiked: false, 
+      comments: [] 
+    },
 ];
 
 function Feed({ user, onAddToNetwork, onRemoveFromNetwork, onSendMessage }) {
