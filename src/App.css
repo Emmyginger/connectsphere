@@ -1,38 +1,680 @@
-.App {
-  text-align: center;
+/* --- Light Theme (Default) --- */
+:root {
+  --primary-color: #008080; /* Teal */
+  --primary-hover: #006666;
+  --secondary-color: #4A5568; /* Slate Gray */
+  --accent-color: #FF7F50; /* Coral */
+  --background-color: #f3f2ef;
+  --card-bg: #FFFFFF;
+  --text-color: #2D3748;
+  --text-secondary: rgba(0, 0, 0, 0.6);
+  --border-color: #E2E8F0;
+  --button-disabled-bg: #d3d3d3;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* --- Dark Theme --- */
+body[data-theme='dark'] {
+  --primary-color: #38B2AC; /* Lighter Teal for dark mode */
+  --primary-hover: #4fd1cc;
+  --secondary-color: #A0AEC0;
+  --accent-color: #F6AD55; /* Lighter Coral */
+  --background-color: #1A202C;
+  --card-bg: #2D3748;
+  --text-color: #EDF2F7;
+  --text-secondary: rgba(255, 255, 255, 0.7);
+  --border-color: #4A5568;
+  --button-disabled-bg: #4A5568;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 0.2s linear, color 0.2s linear;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* --- Global App Layout --- */
+.app__body {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: 1200px;
+  margin-top: 25px;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+/* --- Login Page --- */
+.login {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+}
+.login__container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 50px;
+  background-color: var(--card-bg);
+  border-radius: 10px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+}
+.login__logo {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 20px;
+}
+.login__logo > span {
+  color: var(--accent-color);
+}
+.login__form {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}
+.login__form > input, .login__form > button {
+  width: 100%;
+  box-sizing: border-box;
+}
+.login__form > input[type="text"] {
+  height: 40px;
+  margin-bottom: 10px;
+  padding: 0 15px;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  font-size: 1rem;
+}
+.login__form > label {
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+  color: var(--secondary-color);
+  cursor: pointer;
+  padding: 10px;
+  border: 1px dashed var(--border-color);
+  border-radius: 5px;
+  text-align: center;
+}
+.login__form > input[type="file"] {
+  display: none;
+}
+.login__form > button {
+  height: 45px;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--primary-color);
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.login__form > button:hover {
+  background-color: var(--primary-hover);
+}
+
+/* --- Header --- */
+.header {
+  width: 100%;
+  padding: 10px 0;
+  display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  background-color: var(--card-bg);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+.header__content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+.header__left,
+.header__right {
+  display: flex;
+  align-items: center;
+}
+.header__logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: var(--primary-color);
+}
+.header__logo span {
+  color: var(--accent-color);
+}
+.headerOption {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 25px;
+  color: var(--secondary-color);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.headerOption:hover,
+.headerOption.active {
+  color: var(--primary-color);
+}
+.headerOption__title {
+  font-size: 12px;
+  font-weight: 400;
+  margin-top: 4px;
+}
+.headerOption__avatar {
+  width: 25px !important;
+  height: 25px !important;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-left: 20px;
+  color: var(--secondary-color);
+}
+.header__hamburger {
+  display: none;
+  cursor: pointer;
+  color: var(--secondary-color);
+}
+.header__mobileMenu {
+    display: none;
+}
+
+
+/* --- Sidebar --- */
+.sidebar {
+  position: sticky;
+  top: 80px;
+  flex: 0.2;
+  border-radius: 10px;
+  text-align: center;
+  height: fit-content;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  margin-right: 20px;
+}
+.sidebar__top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 10px;
+}
+.sidebar__top > img {
+  margin-bottom: -20px;
+  width: 100%;
+  height: 60px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  object-fit: cover;
+}
+.sidebar__avatar {
+  width: 70px !important;
+  height: 70px !important;
+  border-radius: 50%;
+  border: 3px solid var(--card-bg);
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+.sidebar__top > h2 {
+  font-size: 18px;
+  margin: 5px 0 0 0;
+}
+.sidebar__top > h4 {
+  color: var(--text-secondary);
+  font-size: 12px;
+  margin: 5px 10px;
+  font-weight: 400;
+}
+
+/* --- Feed & Post --- */
+.feed {
+  flex: 0.6;
+}
+.feed__inputContainer,
+.post,
+.networkPage,
+.jobsPage {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+}
+.feed__input {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--border-color);
+  border-radius: 30px;
+  padding: 10px 15px;
+}
+.feed__input > form {
+  display: flex;
+  width: 100%;
+}
+.feed__input > form > input {
+  border: none;
+  flex: 1;
+  margin-left: 10px;
+  outline: 0;
+  font-weight: 600;
+  font-size: 1rem;
+  background: transparent;
+  color: var(--text-color);
+}
+.feed__input > form > button {
+  display: none;
+}
+.feed__inputOptions {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 15px;
+}
+.inputOption {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+  color: var(--secondary-color);
+  border-radius: 5px;
+  transition: background-color 0.2s;
+}
+.inputOption:hover {
+  background-color: var(--background-color);
+}
+.inputOption > h4 {
+  margin-left: 10px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.inputOption > input[type="file"] {
+  display: none;
+}
+.post__header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.post__avatar {
+  width: 50px !important;
+  height: 50px !important;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.post__info {
+  margin-left: 10px;
+}
+.post__info > h2 {
+  font-size: 15px;
+  margin: 0;
+}
+.post__info > p {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin: 0;
+}
+.post__body {
+  overflow-wrap: anywhere;
+}
+.post__body > p {
+  margin-bottom: 15px;
+}
+.post__image,
+.post__video {
+  max-width: 100%;
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  border: 1px solid var(--border-color);
+}
+.post__buttons {
+  display: flex;
+  justify-content: space-evenly;
+  border-top: 1px solid var(--border-color);
+  padding-top: 10px;
+}
+
+/* --- My Network Page --- */
+.networkPage {
+  flex: 0.8;
+}
+.networkPage > h1 {
+  font-size: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 10px;
+  margin-top: 0;
+}
+.networkPage__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+.networkPage__member {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 15px;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+}
+.networkPage__member img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+.networkPage__member h3 {
+  font-size: 1rem;
+  margin: 0;
+}
+.networkPage__empty {
+  color: var(--secondary-color);
+  font-size: 1.2rem;
+  text-align: center;
+  margin-top: 40px;
+}
+
+/* --- Jobs Page --- */
+.jobsPage {
+  flex: 0.8;
+}
+.jobsPage > h1 {
+  margin-top: 0;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 10px;
+}
+.jobList {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.jobCard {
+  padding: 15px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.jobCard__info h2 {
+  font-size: 1.1rem;
+  margin: 0 0 5px 0;
+  color: var(--primary-color);
+}
+.jobCard__info p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+.jobCard__apply-btn {
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: none;
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.jobCard__apply-btn:hover {
+  background-color: var(--primary-hover);
+}
+.jobCard__apply-btn--applied {
+  background-color: var(--button-disabled-bg);
+  color: var(--text-color);
+  cursor: not-allowed;
+}
+
+
+/* Post Component Additions */
+.post__header {
+  position: relative;
+}
+.post__message-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: transparent;
+  border: none;
+  color: var(--secondary-color);
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+}
+.post__message-btn:hover {
+  background-color: var(--background-color);
+}
+.post__comments {
+    margin-top: 15px;
+    border-top: 1px solid var(--border-color);
+    padding-top: 10px;
+}
+.post__comment {
+    display: flex;
+    margin-bottom: 8px;
+    align-items: center;
+}
+.post__comment p {
+    margin: 0;
+    background-color: var(--background-color);
+    padding: 8px 12px;
+    border-radius: 18px;
+    font-size: 14px;
+    line-height: 1.4;
+}
+.post__comment strong {
+    margin-right: 6px;
+    color: var(--primary-color);
+}
+.post__commentForm {
+    display: flex;
+    margin-top: 10px;
+}
+.post__commentForm input {
+    flex: 1;
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 10px;
+    outline: none;
+    background-color: transparent;
+    color: var(--text-color);
+}
+.post__commentForm button {
+    display: none;
+}
+
+/* My Network Page Additions */
+.networkPage__member {
+  position: relative;
+}
+.networkPage__remove-btn {
+  margin-top: 10px;
+  padding: 6px 12px;
+  border: 1px solid #E53E3E;
+  color: #E53E3E;
+  background-color: transparent;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.2s;
+}
+.networkPage__remove-btn:hover {
+  background-color: #E53E3E;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+/* Messaging Page Styles */
+.messagingPage {
+  flex: 0.8;
+  display: flex;
+  height: calc(100vh - 100px); /* Full height minus header */
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 0;
+  overflow: hidden;
+}
+.messagingPage__no-conversations {
+  width: 100%;
+  text-align: center;
+  padding: 40px;
+}
+.messagingPage__sidebar {
+  flex: 0.3;
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+}
+.messagingPage__sidebar h2 {
+  padding: 15px;
+  margin: 0;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 1.2rem;
+}
+.messagingPage__partner {
+  padding: 15px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-weight: bold;
+}
+.messagingPage__partner:hover {
+  background-color: var(--background-color);
+}
+.messagingPage__partner.active {
+  background-color: var(--primary-color);
+  color: white;
+}
+.messagingPage__chat-window {
+  flex: 0.7;
+  display: flex;
+  flex-direction: column;
+}
+.messagingPage__chat-header {
+  padding: 15px;
+  border-bottom: 1px solid var(--border-color);
+}
+.messagingPage__chat-header h3 {
+  margin: 0;
+}
+.messagingPage__messages {
+  flex: 1;
+  padding: 15px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+.messageBubble {
+  padding: 10px 15px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  max-width: 70%;
+  line-height: 1.4;
+}
+.messageBubble.sent {
+  background-color: var(--primary-color);
+  color: white;
+  align-self: flex-end;
+}
+.messageBubble.received {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  align-self: flex-start;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+/* --- Base Responsive (Tablet) --- */
+@media (max-width: 768px) {
+  .app__body {
+    flex-direction: column;
   }
-  to {
-    transform: rotate(360deg);
+  .sidebar {
+    position: static;
+    flex: 1;
+    margin: 0 0 20px 0;
+  }
+  .feed, .networkPage, .jobsPage {
+    flex: 1;
+  }
+  .header__right {
+    display: none;
+  }
+  .header__hamburger {
+    display: block;
+  }
+  .header__mobileMenu {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+  }
+  .header__mobileMenu .headerOption {
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 150px;
+    padding: 10px;
+    margin: 0;
+  }
+  .header__mobileMenu .headerOption__title {
+    margin: 0 0 0 10px;
+    font-size: 1rem;
+  }
+}
+
+/* --- Small Mobile Responsive --- */
+@media (max-width: 480px) {
+  .app__body {
+    padding: 0 10px;
+    margin-top: 15px;
+    
+  }
+  .login__container {
+    padding: 30px 20px;
+    width: 80%;
+  }
+  .login__logo {
+    font-size: 2.5rem;
+  }
+ 
+  .header__content {
+    padding: 0 15px;
+    
+  }
+  .header__logo {
+    font-size: 1.3rem;
+  }
+  .jobCard {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .jobCard__info {
+    margin-bottom: 15px;
+  }
+  .jobCard__apply-btn {
+    width: 100%;
+    text-align: center;
   }
 }
