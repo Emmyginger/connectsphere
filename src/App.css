@@ -234,7 +234,7 @@ a {
 }
 .sidebar__top > h2 {
   font-size: 18px;
-  margin: 5px 0 0 0;
+  margin: 10px 0 0 0;
 }
 .sidebar__top > h4 {
   color: var(--text-secondary);
@@ -677,4 +677,8 @@ a {
     width: 100%;
     text-align: center;
   }
+    .networkPage__grid{
+      flex-direction: column;
+    }
+  
 }
